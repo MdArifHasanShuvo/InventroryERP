@@ -1,0 +1,111 @@
+﻿@model IEnumerable<ProductType>
+@{
+    ViewData["Title"] = "Index";
+    var i = 0;
+}
+
+<div class="row">
+    <div class="col-12">
+        <h3>Product Type Information</h3>
+        <div class="d-flex justify-content-end mb-1">
+            <form asp-controller="ProductTypes" asp-action="DeleteSelected" id="delForm">
+               
+                <button type="button" id="delSelected" class="btn btn-secondary btn-sm mr-1">Delete selected items</button>
+            </form>
+           
+            
+        </div>
+        <div class="d-flex justify-content-end mb-1">
+            <form asp-controller="ProductTypes" asp-action="Index" class="mr-1" >
+                <div class="input-group ">
+                  <input type="text" class="form-control" value="@ViewBag.Search" name="search" aria-describedby="button-addon2">
+                  <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="bi bi-search"></i></button>
+                </div>
+                
+            </form>
+            <a asp-controller="ProductTypes" asp-action="Create" class="btn btn-primary ms-2"><i class="bi bi-plus"></i></a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <table class="table table-bordered">
+            <thead class="bg-light">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                    <th>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="checkAll">
+                            <label class="form-check-label" for="flexCheckChecked">
+
+                            </label>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr>
+                        <td>
+                            @(++i)
+                        </td>
+                        <td>@x.Name</td>
+                        <td>@x.Description</td>
+                        <td>
+                            <div class="d-flex">
+                                <a class="btn btn-secondary btn-sm mr-1" asp-controller="ProductTypes" asp-action="Edit" asp-route-id="@x.Id" asp-route-_Key="@x._Key"><i class="bi bi-pencil"></i></a>
+                                <form class="ms-2" asp-controller="ProductTypes" asp-action="Delete" id="delSingleForm">
+                                    <input type="hidden" name="Id" value="@x.Id" />
+                                    <button type="submit" class="btn btn-secondary btn-sm mr-1"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input chk" type="checkbox" data-pk="@x.Id">
+                                <label class="form-check-label" for="flexCheckChecked">
+
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Styles
+{
+    <link href="~/libs/boostrap-icon/font/bootstrap-icons.css" rel="stylesheet" />
+    
+}
+@section Scripts
+{
+  
+    <script src="~/libs/jquery/jquery.min.js"></script>
+<script>
+    $(() => {
+        $("#checkAll").click(function () {
+            //console.log($(this));
+            $('input:checkbox').prop('checked', this.checked);
+        });
+        $("#delSelected").click(() => {
+            if ($(".chk:checked").length == 0) return;
+           
+            $(".chk").each((id, el) => {
+                if ($(el).is(":checked")) {
+                    var id = $(el).data('pk');
+                    $("#delForm").append(`<input type='hidden' name='ids' value=${id} />`);
+                }
+
+            });
+            $("#delForm").submit();
+        });
+    });
+</script>
+}
+

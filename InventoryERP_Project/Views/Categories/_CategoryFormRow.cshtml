@@ -1,0 +1,20 @@
+﻿@model Category
+@{ 
+    
+    var name = $"Category[{ViewBag.Index}].Name";
+    var id = $"Category_{ViewBag.Index}_Name";
+    var desc = $"Category[{ViewBag.Index}].Description";
+    var iddesc = $"Category_{ViewBag.Index}_Description";
+    var nametype = $"Category[{ViewBag.Index}].Product_Type_Id";
+}
+<tr data-index="@ViewBag.Index">
+    <td>
+        <input type="hidden" name="@nametype" value="@ViewBag.TypeId" />
+        <input asp-for="Name" name="@name" id="@id"  class="form-control" />
+        <span asp-validation-for="@name" data-valmsg-for="@name"></span>
+    </td>
+    <td>
+        <input asp-for="Description" name="@desc" id="@iddesc" class="form-control" />
+        <span asp-validation-for="@desc" data-valmsg-for="@desc"></span>
+    </td>
+</tr>

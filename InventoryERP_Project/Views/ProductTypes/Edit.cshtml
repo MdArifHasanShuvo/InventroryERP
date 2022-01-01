@@ -1,0 +1,50 @@
+﻿@model ProductType
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="border px-2 mb-1">
+
+    <h3>Edit ProductType</h3>
+    <form method="post" asp-controller="ProductTypes" asp-action="Edit">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="_Key" value="@Model._Key" />
+        <div class="form-group row mb-1">
+            <label asp-for="Name" class="col-form-label col-2"></label>
+            <div class="col-4">
+                <input type="text" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" />
+            </div>
+        </div>
+        <div class="form-group row mb-1">
+            <label asp-for="Description" class="col-form-label col-2"></label>
+            <div class="col-4">
+                <textarea type="text" asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" />
+            </div>
+        </div>
+        <div class="form-group row mb-1">
+
+            <div class="col-4 offset-2">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Styles
+{
+    <link href="~/libs/boostrap-icon/font/bootstrap-icons.css" rel="stylesheet" />
+
+}
+@section Scripts
+{
+
+    <script src="~/libs/jquery/jquery.min.js"></script>
+    <script src="~/libs/validation/jquery.validate.min.js"></script>
+
+    <script src="~/libs/validation/jquery.validate.unobtrusive.min.js"></script>
+}
+

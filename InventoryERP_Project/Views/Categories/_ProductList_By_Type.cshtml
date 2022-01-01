@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Category>
+
+
+@foreach (Category x in Model)
+{
+    <tr>
+        <td>@x.Name</td>
+        <td colspan="2">@x.Description</td>
+    </tr>
+}
